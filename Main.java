@@ -1,5 +1,4 @@
 
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,11 +15,9 @@ public class Main {
     public static List<String> results = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
-            String path = args[0];
-            readFromFile(path);
-            solve();
-            getRes();
-
+        readFromFile(args[0]);
+        solve();
+        getRes();
     }
 
     public static void getRes(){
@@ -28,7 +25,7 @@ public class Main {
         results.add(visitedNodes.get(0)[1]);
         visitedNodes.remove(0);
 
-        String[] temp = null;
+        String[] temp;
         for(int i=0; i < visitedNodes.size(); i++){
             for(int j=1; j < (visitedNodes.size() - i); j++){
                 if(Integer.parseInt(visitedNodes.get(j-1)[2]) < Integer.parseInt(visitedNodes.get(j)[2])){
@@ -41,8 +38,6 @@ public class Main {
         }
 
         for (int i = 0; i < visitedNodes.size(); i++) {
-     //       System.out.println(i + " i here");
-
             if(results.get(results.size() - 1).equals(visitedNodes.get(i)[0])){
                 results.add(visitedNodes.get(i)[1]);
                 visitedNodes.remove(i);
@@ -64,8 +59,8 @@ public class Main {
 
         List<Integer> res = new ArrayList<>();
 
-        for(int i = 0; i < results.size(); i ++){
-            res.add(Integer.parseInt(results.get(i)));
+        for (String result : results) {
+            res.add(Integer.parseInt(result));
         }
 
         for(int i = 0; i < countCities; i++){
@@ -74,8 +69,8 @@ public class Main {
             }
         }
 
-        for(int i = 0; i < res.size(); i ++){
-            System.out.print(res.get(i));
+        for (Integer re : res) {
+            System.out.print(re);
         }
 
         System.out.println();
@@ -90,23 +85,22 @@ public class Main {
 
     public static void getDistance(int city, List<String[]> dists) {
         System.out.println(city + " - city");
-
-        List<String[]> tmps = new ArrayList<>();
+        List<String[]> temp = new ArrayList<>();
         for (String[] dist : dists) {
             if (city == Integer.parseInt(dist[0]) || city == Integer.parseInt(dist[1])) {
                 if (!visitedNodes.contains(dist)) {
-                    tmps.add(dist);
+                    temp.add(dist);
                 }
             }
         }
-        for (String[] tmp : tmps) {
+        for (String[] tmp : temp) {
             for (String s : tmp) {
                 System.out.print(s + " ");
             }
             System.out.println();
         }
 
-        countMinDist(tmps);
+        countMinDist(temp);
         visitedCities.add(String.valueOf(city));
         for (String[] visitedNode : visitedNodes) {
             for (String s : visitedNode) {
@@ -117,23 +111,21 @@ public class Main {
         System.out.println(visitedCities.toString());
     }
 
-    public static void countMinDist(List<String[]> dists) {
+    public static void countMinDist(List<String[]> distances) {
 
         try{
             for (int j = 0; j < visitedCities.size(); j++){
-                if (visitedCities.get(j).equals(dists.get(0)[0]) || visitedCities.get(j).equals(dists.get(0)[1])) {
-                    dists.remove(0);
+                if (visitedCities.get(j).equals(distances.get(0)[0]) || visitedCities.get(j).equals(distances.get(0)[1])) {
+                    distances.remove(0);
                     j = 0;
                 }
             }
-        }catch (Exception ignored){
-
-        }
+        }catch (Exception ignored){}
 
         int min = Integer.MAX_VALUE;
         String[] tmp = null;
         boolean flag = false;
-        for (String[] dist : dists) {
+        for (String[] dist : distances) {
             for (int j = 0; j < dist.length - 1; j++) {
                 int tmpMin = min;
                 for (String visitedCity : visitedCities) {
@@ -159,7 +151,7 @@ public class Main {
         }
 
         if(tmp != null)
-                visitedNodes.add(tmp);
+            visitedNodes.add(tmp);
 
         System.out.println(min + " - min");
 
@@ -173,14 +165,11 @@ public class Main {
         System.out.println(countCities);
         String line = bfr.readLine();
         while (line != null) {
-            String tmp[] = line.split(" ");
+            String[] tmp = line.split(" ");
             System.out.println(Arrays.toString(tmp));
             line = bfr.readLine();
             distances.add(tmp);
         }
-
-        System.out.println(" - --- -");
-
-
+        System.out.println("- --- -");
     }
 }
