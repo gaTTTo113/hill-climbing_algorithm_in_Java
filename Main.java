@@ -146,7 +146,6 @@ public class Main {
                     min = tmpMin;
                     tmp = dist;
                 }
-
             }
         }
 
@@ -158,9 +157,7 @@ public class Main {
     }
 
     public static void readFromFile(String path) throws IOException {
-
         BufferedReader bfr = new BufferedReader(new FileReader(path));
-
         countCities = Integer.parseInt(bfr.readLine()) + 1;
         System.out.println(countCities);
         String line = bfr.readLine();
@@ -170,6 +167,6 @@ public class Main {
             line = bfr.readLine();
             distances.add(tmp);
         }
-        System.out.println("- --- -");
+        System.out.println("\n");
     }
 }
